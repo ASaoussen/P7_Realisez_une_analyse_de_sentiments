@@ -63,13 +63,20 @@ jobs:
             !venv/
 
   deploy:
+    permissions:
+      contents: none
     runs-on: ubuntu-latest
     needs: build
+    environment:
+      name: 'Development'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      # Étape 1 : Check-out du dépôt
-      - name: Check out repository
-        uses: actions/checkout@v3
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: python-app
+          path: .
 
       # Étape 2 : Connexion à Azure
       - name: Login to Azure
@@ -78,6 +85,9 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          federated-identity-token: ${{ secrets.AZURE_FEDERATED_IDENTITY_TOKEN }}
+          #client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}  # Assurez-vous que le secret est défini dans les secrets GitHub
+          #auth-type: 'SERVICE_PRINCIPAL'
 
       # Étape 3 : Déployer l'API sur Azure Web App
       - name: Deploy to Azure Web App
