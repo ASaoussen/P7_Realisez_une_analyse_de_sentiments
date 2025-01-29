@@ -72,3 +72,7 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: "production"
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+       
+      - name: Deploy NLTK data to Azure Web App
+        run: |
+            az webapp deploy --resource-group AzureS1 --name ${{ env.AZURE_WEBAPP_NAME }} --src-path nltk_data.zip  --type zip
