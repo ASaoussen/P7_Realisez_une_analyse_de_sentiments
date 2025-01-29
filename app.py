@@ -27,7 +27,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 #        nltk.download(resource, download_dir=NLTK_DATA_PATH)
 
 # Assurer que nltk_data est bien accessible (doit être géré par le YAML)
-NLTK_DATA_PATH = os.getenv("NLTK_DATA", "/home/site/wwwroot/nltk_data")  # Ajuste ce chemin selon ton environnement
+NLTK_DATA_PATH = os.getenv("NLTK_DATA", "/nltk_data")  # Ajuste ce chemin selon ton environnement
 nltk.data.path.append(NLTK_DATA_PATH)
 
 # Initialisation de l'analyseur lexical et des stopwords
