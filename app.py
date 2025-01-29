@@ -13,10 +13,27 @@ from nltk.stem import WordNetLemmatizer
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Configuration de NLTK
-NLTK_DATA_PATH = str(Path.home() / "nltk_data")
+#NLTK_DATA_PATH = str(Path.home() / "nltk_data")
+#os.makedirs(NLTK_DATA_PATH, exist_ok=True)
+#nltk.data.path.append(NLTK_DATA_PATH)
+#
+#RESOURCES = ['wordnet', 'omw-1.4', 'stopwords', 'punkt']
+#for resource in RESOURCES:
+#    try:
+#        nltk.data.find(f"tokenizers/{resource}" if resource == 'punkt' else f"corpora/{resource}")
+#    except LookupError:
+#        logging.info(f"Téléchargement du package NLTK : {resource}")
+#        nltk.download(resource, download_dir=NLTK_DATA_PATH)
+
+
+# Définir le chemin pour stocker les données NLTK
+NLTK_DATA_PATH = "/home/nltk_data"
 os.makedirs(NLTK_DATA_PATH, exist_ok=True)
+
+# Ajouter le chemin aux ressources NLTK
 nltk.data.path.append(NLTK_DATA_PATH)
 
+# Télécharger les ressources si elles ne sont pas déjà présentes
 RESOURCES = ['wordnet', 'omw-1.4', 'stopwords', 'punkt']
 for resource in RESOURCES:
     try:
