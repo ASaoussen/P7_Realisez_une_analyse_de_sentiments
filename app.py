@@ -13,8 +13,9 @@ from nltk.stem import WordNetLemmatizer
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Assurer que nltk_data est bien accessible (doit être géré par le YAML)
-NLTK_DATA_PATH = os.getenv("NLTK_DATA", "/nltk_data")  # Ajuste ce chemin selon ton environnement
-nltk.data.path.append(NLTK_DATA_PATH)
+NLTK_DATA_PATH = os.getenv("NLTK_DATA", os.path.join(os.getcwd(), "myenv", "nltk_data"))  # Ajuste ce chemin selon ton environnement
+nltk.data.path = [NLTK_DATA_PATH]
+#nltk.data.path.append(NLTK_DATA_PATH)
 
 # Téléchargement des ressources nécessaires
 RESOURCES = ['wordnet', 'omw-1.4', 'stopwords', 'punkt']
