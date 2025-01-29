@@ -64,16 +64,37 @@ except Exception as e:
     raise RuntimeError(f"Échec du chargement du modèle : {e}")
 
 # Modèle de données pour l'entrée utilisateur
+#class InputData(BaseModel):
+#    text: str
+#
+#   @field_validator('text')
+#   def validate_text(cls, v):
+#       """Valide que le texte n'est pas vide."""
+#       if not v.strip():
+#           raise HTTPException(status_code=800, detail="Le texte ne peut pas être vide.")
+#       return v
+
 class InputData(BaseModel):
     text: str
 
     @field_validator('text')
     def validate_text(cls, v):
-        """Valide que le texte n'est pas vide."""
-        if not v.strip():
-            raise ValueError("Le texte ne peut pas être vide.")
+        """Valide que le texte n'est pas vide et n'est pas un nombre."""
+        
+        # Vérifie si v est vide après avoir retiré les espaces
+        if not v.strip():   
+            raise HTTPException(status_code=400, detail="Le texte ne peut pas être vide.")
+        
+        # Vérifie si v est un nombre (int ou float)
+        try:
+            # Tente de convertir le texte en float pour voir s'il s'agit d'un nombre
+            float(v)  
+            raise HTTPException(status_code=400, detail="Le texte ne peut pas être un nombre.")
+        except ValueError:
+            # Si une exception est levée, cela signifie que v n'est pas un nombre
+            pass
+        
         return v
-
 @app.post("/predict/")
 async def predict(input_data: InputData):
     """Prédit le sentiment d'un texte."""
