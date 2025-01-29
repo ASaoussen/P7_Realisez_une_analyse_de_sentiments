@@ -43,7 +43,7 @@ jobs:
 
       - name: Deploy NLTK data to Azure Web App
         run: |
-            az webapp deploy --resource-group AzureS1 --name ${{ env.AZURE_WEBAPP_NAME }} --src nltk_data.zip
+            az webapp deploy --resource-group AzureS1 --name ${{ env.AZURE_WEBAPP_NAME }} --src-path nltk_data.zip
 
 
       - name: Upload artifact for deployment
