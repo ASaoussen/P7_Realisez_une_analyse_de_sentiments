@@ -52,6 +52,9 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+      
+      - name: Download NLTK data
+        run: python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('omw-1.4'); nltk.download('wordnet')"
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
