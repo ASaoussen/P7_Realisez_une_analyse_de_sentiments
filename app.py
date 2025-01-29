@@ -13,10 +13,11 @@ from nltk.stem import WordNetLemmatizer
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Configuration de NLTK
-NLTK_DATA_PATH = str("myenv/nltk_data")
+NLTK_DATA_PATH = "myenv/nltk_data"
 os.makedirs(NLTK_DATA_PATH, exist_ok=True)
 nltk.data.path.append(NLTK_DATA_PATH)
 
+# Téléchargement des ressources nécessaires
 RESOURCES = ['wordnet', 'omw-1.4', 'stopwords', 'punkt']
 for resource in RESOURCES:
     try:
@@ -25,7 +26,6 @@ for resource in RESOURCES:
         logging.info(f"Téléchargement du package NLTK : {resource}")
         nltk.download(resource, download_dir=NLTK_DATA_PATH)
 
-
 # Initialisation de l'analyseur lexical et des stopwords
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
@@ -33,8 +33,8 @@ stop_words = set(stopwords.words('english'))
 def clean_text(text: str) -> str:
     """Nettoie le texte en supprimant les caractères spéciaux et les chiffres."""
     text = text.lower()
-    text = re.sub(r'[^\w\s]', '', text)
-    text = re.sub(r'\d+', '', text)
+    text = re.sub(r'[^\w\s]', '', text)  # Supprime la ponctuation
+    text = re.sub(r'\d+', '', text)  # Supprime les chiffres
     return text
 
 def preprocess_text(text: str) -> str:
@@ -61,7 +61,7 @@ except Exception as e:
     logging.error(f"Erreur lors du chargement du modèle : {e}")
     raise RuntimeError(f"Échec du chargement du modèle : {e}")
 
-# Modèle de données pour l'entrée de l'utilisateur
+# Modèle de données pour l'entrée utilisateur
 class InputData(BaseModel):
     text: str
 
@@ -92,7 +92,7 @@ async def predict(input_data: InputData):
         logging.error(f"Erreur lors de la prédiction : {e}")
         raise HTTPException(status_code=500, detail="Erreur interne du serveur.")
 
-# Code pour démarrer l'API via Uvicorn (si nécessaire)
+# Lancer l'API avec Uvicorn
 #if __name__ == "__main__":
 #    import uvicorn
 #    uvicorn.run(app, host="0.0.0.0", port=8000)
