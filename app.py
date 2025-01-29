@@ -79,14 +79,14 @@ async def predict(input_data: InputData):
     try:
         # Prétraitement du texte
         #cleaned_text = preprocess_text(input_data.text)
+        cleaned_text = "This is very good"
         
         # Prédiction avec le modèle
-        #predictions = pipeline.predict([cleaned_text])
-        #sentiment = "Positive" if predictions[0] == 1 else "Negative"
+        predictions = pipeline.predict([cleaned_text])
+        sentiment = "Positive" if predictions[0] == 1 else "Negative"
         
         # Retour de la réponse
-        #return {"prediction": int(predictions[0]), "sentiment": sentiment}
-        return {"prediction": 1, "sentiment": "GOOD"}
+        return {"prediction": int(predictions[0]), "sentiment": sentiment}
     except ValueError as ve:
         logging.error(f"Erreur lors de la prédiction : {ve}")
         raise HTTPException(status_code=400, detail=str(ve))
