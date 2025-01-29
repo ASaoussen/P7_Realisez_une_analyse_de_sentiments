@@ -78,8 +78,7 @@ async def predict(input_data: InputData):
     """Prédit le sentiment d'un texte."""
     try:
         # Prétraitement du texte
-        #cleaned_text = preprocess_text(input_data.text)
-        cleaned_text = "This is very good"
+        cleaned_text = preprocess_text(input_data.text)
         
         # Prédiction avec le modèle
         predictions = pipeline.predict([cleaned_text])
@@ -92,7 +91,7 @@ async def predict(input_data: InputData):
         raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:
         logging.error(f"Erreur lors de la prédiction : {e}")
-        raise HTTPException(status_code=500, detail="Erreur interne du serveur.")
+        raise HTTPException(status_code=500, detail=str(e))
 
 # Lancer l'API avec Uvicorn
 #if __name__ == "__main__":
