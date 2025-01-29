@@ -8,6 +8,6 @@ async def root():
     return {"message": "Bienvenue sur l'API d'Analyse de Sentiments !"}
 
 # Code pour démarrer l'API via Uvicorn (si nécessaire)
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+#if __name__ == "__main__":
+#    import uvicorn
+#    uvicorn.run(app, host="0.0.0.0", port=8000)
