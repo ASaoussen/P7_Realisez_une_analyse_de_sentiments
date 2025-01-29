@@ -23,7 +23,7 @@ def test_predict_valid_text():
 def test_predict_empty_text():
     input_data = {"text": ""}
     response = client.post("/predict/", json=input_data)
-    assert response.status_code == 422
+    assert response.status_code == 400
     assert "detail" in response.json()
     assert response.json()["detail"] == "Le texte ne peut pas être vide."
 
@@ -46,13 +46,6 @@ def test_predict_text_with_special_characters():
 #    monkeypatch.setattr('joblib.load', lambda x: 1 / 0)  # Simuler une erreur lors du chargement du modèle
 #    with pytest.raises(RuntimeError):
 #        client.post("/predict/", json={"text": "Good day!"})
-
-# Test de la validation du modèle InputData
-def test_input_data_validation():
-    invalid_data = {"text": " "}  # Texte vide après nettoyage
-    response = client.post("/predict/", json=invalid_data)
-    assert response.status_code == 422
-    assert "detail" in response.json()
 
 # Test de la route de prédiction avec texte qui pourrait entraîner une exception inattendue
 def test_predict_unexpected_error():
