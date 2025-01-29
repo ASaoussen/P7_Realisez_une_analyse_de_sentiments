@@ -13,7 +13,7 @@ from nltk.stem import WordNetLemmatizer
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Configuration de NLTK
-#NLTK_DATA_PATH = "myenv/nltk_data"
+#NLTK_DATA_PATH = "/home/site/wwwroot/nltk_data"
 #os.makedirs(NLTK_DATA_PATH, exist_ok=True)
 #nltk.data.path.append(NLTK_DATA_PATH)
 
@@ -25,6 +25,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 #    except LookupError:
 #        logging.info(f"Téléchargement du package NLTK : {resource}")
 #        nltk.download(resource, download_dir=NLTK_DATA_PATH)
+
+# Assurer que nltk_data est bien accessible (doit être géré par le YAML)
+NLTK_DATA_PATH = os.getenv("NLTK_DATA", "/home/site/wwwroot/nltk_data")  # Ajuste ce chemin selon ton environnement
+nltk.data.path.append(NLTK_DATA_PATH)
 
 # Initialisation de l'analyseur lexical et des stopwords
 lemmatizer = WordNetLemmatizer()
