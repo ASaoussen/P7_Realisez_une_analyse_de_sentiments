@@ -12,23 +12,20 @@ from nltk.stem import WordNetLemmatizer
 # Configuration des journaux
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# Configuration de NLTK
-#NLTK_DATA_PATH = "/home/site/wwwroot/nltk_data"
-#os.makedirs(NLTK_DATA_PATH, exist_ok=True)
-#nltk.data.path.append(NLTK_DATA_PATH)
-
-# Téléchargement des ressources nécessaires
-#RESOURCES = ['wordnet', 'omw-1.4', 'stopwords', 'punkt']
-#for resource in RESOURCES:
-#    try:
-#        nltk.data.find(f"tokenizers/{resource}" if resource == 'punkt' else f"corpora/{resource}")
-#    except LookupError:
-#        logging.info(f"Téléchargement du package NLTK : {resource}")
-#        nltk.download(resource, download_dir=NLTK_DATA_PATH)
-
 # Assurer que nltk_data est bien accessible (doit être géré par le YAML)
 NLTK_DATA_PATH = os.getenv("NLTK_DATA", "/nltk_data")  # Ajuste ce chemin selon ton environnement
 nltk.data.path.append(NLTK_DATA_PATH)
+
+# Téléchargement des ressources nécessaires
+RESOURCES = ['wordnet', 'omw-1.4', 'stopwords', 'punkt']
+for resource in RESOURCES:
+    try:
+        nltk.data.find(f"tokenizers/{resource}" if resource == 'punkt' else f"corpora/{resource}")
+    except LookupError:
+        logging.info(f"Téléchargement du package NLTK : {resource}")
+        nltk.download(resource, download_dir=NLTK_DATA_PATH)
+
+
 
 # Initialisation de l'analyseur lexical et des stopwords
 lemmatizer = WordNetLemmatizer()
