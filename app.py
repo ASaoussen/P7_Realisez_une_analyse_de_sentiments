@@ -18,10 +18,10 @@ nltk.data.path = [NLTK_DATA_PATH]
 #nltk.data.path.append(NLTK_DATA_PATH)
 
 # Téléchargement des ressources nécessaires
-RESOURCES = ['wordnet', 'omw-1.4', 'stopwords', 'punkt']
+RESOURCES = ['wordnet', 'omw-1.4', 'stopwords', 'punkt', 'punkt_tab']
 for resource in RESOURCES:
     try:
-        nltk.data.find(f"tokenizers/{resource}" if resource == 'punkt' else f"corpora/{resource}")
+        nltk.data.find(f"tokenizers/{resource}" if resource in ['punkt', 'punkt_tab'] else f"corpora/{resource}")
     except LookupError:
         logging.info(f"Téléchargement du package NLTK : {resource}")
         nltk.download(resource, download_dir=NLTK_DATA_PATH)
