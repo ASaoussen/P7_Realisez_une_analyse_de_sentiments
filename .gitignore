@@ -8,8 +8,8 @@
 
 
 #les fichiers
-.gitignore.txt
-.gitignore.bak.txt
+.gitignore
+.gitignore.bak
 mlflow.db
 *.bak
 streamlit_dashboard.py
