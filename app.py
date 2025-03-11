@@ -63,16 +63,7 @@ except Exception as e:
     logging.error(f"Erreur lors du chargement du modèle : {e}")
     raise RuntimeError(f"Échec du chargement du modèle : {e}")
 
-# Modèle de données pour l'entrée utilisateur
-#class InputData(BaseModel):
-#    text: str
-#
-#   @field_validator('text')
-#   def validate_text(cls, v):
-#       """Valide que le texte n'est pas vide."""
-#       if not v.strip():
-#           raise HTTPException(status_code=800, detail="Le texte ne peut pas être vide.")
-#       return v
+
 
 class InputData(BaseModel):
     text: str
@@ -115,7 +106,7 @@ async def predict(input_data: InputData):
         logging.error(f"Erreur lors de la prédiction : {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# Lancer l'API avec Uvicorn
+#Lancer l'API avec Uvicorn
 #if __name__ == "__main__":
 #    import uvicorn
 #    uvicorn.run(app, host="0.0.0.0", port=8000)
